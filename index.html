@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="musicPlayerApp">
+<head>
+    <title>Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="MusicPlayerController">
+    <div class="player-container">
+        <h1>Music Player</h1>
+
+        <!-- Audio Element -->
+        <audio id="audioPlayer" ng-src="{{currentTrack.url}}" controls></audio>
+
+        <!-- Playlist -->
+        <div class="playlist">
+            <h3>Playlist</h3>
+            <ul>
+                <li ng-repeat="track in tracks" 
+                    ng-click="playTrack(track)" 
+                    ng-class="{active: track === currentTrack}">
+                    {{track.title}} - {{track.artist}}
+                </li>
+            </ul>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button ng-click="togglePlay()">{{isPlaying ? 'Pause' : 'Play'}}</button>
+            <button ng-click="nextTrack()">Next</button>
+            <button ng-click="prevTrack()">Previous</button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress">
+            <input type="range" min="0" max="100" ng-model="progress" ng-change="seek()">
+        </div>
+    </div>
+</body>
+</html>
